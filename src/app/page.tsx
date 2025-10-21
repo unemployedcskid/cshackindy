@@ -469,15 +469,14 @@ export default function Home() {
                 style={{
                   left: item.x,
                   top: item.y,
-                  transform: `rotate(${item.rotation})`,
                   animationDelay: item.delay
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = `rotate(0deg) scale(1.1)`;
+                  e.currentTarget.style.transform = 'scale(1.1)';
                   e.currentTarget.style.filter = 'drop-shadow(0 0 20px rgba(0, 255, 136, 0.6))';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = `rotate(${item.rotation}) scale(1)`;
+                  e.currentTarget.style.transform = 'scale(1)';
                   e.currentTarget.style.filter = 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))';
                 }}
               >

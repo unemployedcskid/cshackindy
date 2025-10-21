@@ -183,7 +183,10 @@ export default function TeamPage() {
                       className="w-full h-full object-cover rounded-full"
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
-                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                        if (nextElement) {
+                          nextElement.style.display = 'flex';
+                        }
                       }}
                     />
                     <span className="style={{color: '#fdfcfb'}} font-mokoto font-bold text-2xl hidden">
