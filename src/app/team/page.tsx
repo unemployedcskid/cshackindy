@@ -5,57 +5,106 @@ import Link from 'next/link';
 export default function TeamPage() {
   const officers = [
     {
-      name: "President",
-      title: "President",
-      image: "/placeholder-officer.jpg",
-      description: "Leading the organization and overseeing all hackathon operations."
+      name: "Om Janamanchi",
+      title: "Co-President",
+      major: "Computer Science",
+      interests: "Swimming, Chess, Netflix",
+      email: "ojanaman@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/om-janamanchi/",
+      image: "/team/om-janamanchi.jpg"
     },
     {
-      name: "Vice President",
-      title: "Vice President", 
-      image: "/placeholder-officer.jpg",
-      description: "Supporting the president and managing day-to-day operations."
+      name: "Abha Gupta",
+      title: "Co-President",
+      major: "Computer Science",
+      interests: "Leadership, Technology, Innovation",
+      email: "gupt1107@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/abha-gupta/",
+      image: "/team/abha-gupta.jpg"
     },
     {
-      name: "Treasurer",
+      name: "Emily Zheng",
       title: "Treasurer",
-      image: "/placeholder-officer.jpg", 
-      description: "Managing finances and sponsor relations."
+      major: "Computer Science",
+      interests: "Video Games (Stardew, Hollow Knight) & arts, music",
+      email: "zheng849@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/emily-zheng-054890338/",
+      image: "/team/emily-zheng.jpg"
     },
     {
-      name: "Secretary",
+      name: "Ashwati Palanivel",
       title: "Secretary",
-      image: "/placeholder-officer.jpg",
-      description: "Handling communications and administrative tasks."
+      major: "Computer Science",
+      interests: "Crocheting and Movies!",
+      email: "palaniv1@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/ashwatipalanivel/",
+      image: "/team/ashwati-palanivel.jpg"
     },
     {
-      name: "Tech Lead",
-      title: "Tech Lead",
-      image: "/placeholder-officer.jpg",
-      description: "Overseeing technical aspects of the hackathon."
+      name: "Ruthu Shankar",
+      title: "Outreach Coordinator",
+      major: "Computer Science",
+      interests: "Cooking, Cycling, Dancing",
+      email: "shanka61@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/shankarruthu/",
+      image: "/team/ruthu-shankar.jpg"
     },
     {
-      name: "Marketing Lead",
-      title: "Marketing Lead", 
-      image: "/placeholder-officer.jpg",
-      description: "Managing outreach and promotional activities."
+      name: "Shely Dash",
+      title: "Outreach Coordinator",
+      major: "Computer Science",
+      interests: "Community Building, Technology",
+      email: "sdash@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/shely-dash/",
+      image: "/team/shely-dash.jpg"
+    },
+    {
+      name: "Hana Zoaib",
+      title: "Social Media Coordinator",
+      major: "Data Science",
+      interests: "Gym and reading",
+      email: "hzoaib@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/hana-zoaib-7233b4345/",
+      image: "/team/hana-zoaib.jpg"
+    },
+    {
+      name: "Oluwatomi Oladunni",
+      title: "Social Media Coordinator",
+      major: "Computer Science BS",
+      interests: "Reading, Playing FIFA, Cooking, and Entrepreneurship",
+      email: "ooladunn@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/oluwatomi-oladunni-685708214/",
+      image: "/team/oluwatomi-oladunni.jpg"
+    },
+    {
+      name: "Richin Mrudul",
+      title: "Webmaster",
+      major: "Computer Science",
+      interests: "Sacramento Kings, Gym, Cooking, Music",
+      email: "rmrudul@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/richinmrudul/",
+      image: "/team/richin-mrudul.jpg"
+    },
+    {
+      name: "Aditya Raj Pundir",
+      title: "Executive Member",
+      major: "Computer Science",
+      interests: "Technology, Leadership",
+      email: "apundir@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/aditya-raj-pundir/",
+      image: "/team/aditya-raj-pundir.jpg"
+    },
+    {
+      name: "Aryaman Patel",
+      title: "Underclassmen Rep",
+      major: "Computer Science",
+      interests: "Rock climbing and watching sports",
+      email: "pate2794@purdue.edu",
+      linkedin: "https://www.linkedin.com/in/aryamanp7/",
+      image: "/team/aryaman-patel.jpg"
     }
   ];
 
-  const advisors = [
-    {
-      name: "Dr. Faculty Advisor",
-      title: "Faculty Advisor",
-      image: "/placeholder-advisor.jpg",
-      description: "Providing academic guidance and institutional support."
-    },
-    {
-      name: "Industry Mentor",
-      title: "Industry Mentor",
-      image: "/placeholder-advisor.jpg", 
-      description: "Offering industry insights and career guidance."
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-black style={{color: '#fdfcfb'}} relative overflow-hidden">
@@ -120,68 +169,52 @@ export default function TeamPage() {
             <h2 className="text-4xl font-mokoto font-bold text-center mb-16 bg-gradient-to-r style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}} bg-clip-text text-transparent animate-fade-in-up">
               Officers
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {officers.map((officer, index) => (
                 <div
                   key={index}
-                  className="glass-effect cyber-border rounded-2xl p-8 text-center hover:neon-glow transition-all duration-500 group animate-fade-in-up hover:scale-105 transform"
+                  className="glass-effect cyber-border rounded-2xl p-6 text-center hover:neon-glow transition-all duration-500 group animate-fade-in-up hover:scale-105 transform"
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
-                  <div className="w-36 h-36 mx-auto mb-8 bg-gradient-to-r style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)'}} rounded-full flex items-center justify-center group-hover:neon-glow transition-all duration-300 floating">
-                    <span className="style={{color: '#fdfcfb'}} font-mokoto font-bold text-3xl">
+                  <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-r style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)'}} rounded-full flex items-center justify-center group-hover:neon-glow transition-all duration-300 floating overflow-hidden">
+                    <img 
+                      src={officer.image} 
+                      alt={officer.name}
+                      className="w-full h-full object-cover rounded-full"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                      }}
+                    />
+                    <span className="style={{color: '#fdfcfb'}} font-mokoto font-bold text-2xl hidden">
                       {officer.name.split(' ').map(word => word[0]).join('')}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-mokoto font-bold style={{color: '#fdfcfb'}} mb-3">{officer.name}</h3>
-                  <p className="style={{color: '#ceb991'}} font-canvasans-medium mb-6 text-lg">{officer.title}</p>
-                  <p className="text-gray-300 leading-relaxed">{officer.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Advisors Section */}
-          <div className="mb-20">
-            <h2 className="text-4xl font-mokoto font-bold text-center mb-16 bg-gradient-to-r style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}} bg-clip-text text-transparent animate-fade-in-up">
-              Advisors
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-              {advisors.map((advisor, index) => (
-                <div
-                  key={index}
-                  className="glass-effect cyber-border rounded-2xl p-10 text-center hover:gold-glow transition-all duration-500 group animate-fade-in-up hover:scale-105 transform"
-                  style={{animationDelay: `${index * 0.2}s`}}
-                >
-                  <div className="w-44 h-44 mx-auto mb-8 bg-gradient-to-r style={{background: 'linear-gradient(to right, #cdba8e, #383435)'}} rounded-full flex items-center justify-center group-hover:gold-glow transition-all duration-300 floating">
-                    <span className="style={{color: '#fdfcfb'}} font-mokoto font-bold text-4xl">
-                      {advisor.name.split(' ').map(word => word[0]).join('')}
-                    </span>
+                  <h3 className="text-xl font-mokoto font-bold style={{color: '#fdfcfb'}} mb-2">{officer.name}</h3>
+                  <p className="style={{color: '#ceb991'}} font-canvasans-medium mb-2 text-lg">{officer.title}</p>
+                  <p className="text-sm style={{color: '#9f9d9d'}} mb-3">{officer.major}</p>
+                  <p className="text-sm text-gray-300 mb-4 leading-relaxed">{officer.interests}</p>
+                  <div className="flex flex-col space-y-2">
+                    <a 
+                      href={`mailto:${officer.email}`}
+                      className="text-xs style={{color: '#00ff88'}} hover:style={{color: '#ceb991'}} transition-colors"
+                    >
+                      📧 {officer.email}
+                    </a>
+                    <a 
+                      href={officer.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs style={{color: '#00ff88'}} hover:style={{color: '#ceb991'}} transition-colors"
+                    >
+                      🔗 LinkedIn
+                    </a>
                   </div>
-                  <h3 className="text-2xl font-mokoto font-bold style={{color: '#fdfcfb'}} mb-3">{advisor.name}</h3>
-                  <p className="style={{color: '#ceb991'}} font-canvasans-medium mb-6 text-lg">{advisor.title}</p>
-                  <p className="text-gray-300 leading-relaxed text-lg">{advisor.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Join Us Section */}
-          <div className="text-center animate-fade-in-up">
-            <div className="glass-effect cyber-border rounded-2xl p-12 neon-glow hover:scale-105 transition-all duration-500">
-              <h2 className="text-3xl font-mokoto font-bold style={{color: '#fdfcfb'}} mb-6">Want to Join Our Team?</h2>
-              <p className="text-gray-300 mb-8 text-lg leading-relaxed">
-                We're always looking for passionate students to help make Hack Indy even better!
-              </p>
-              <a
-                href="https://forms.gle/your-interest-form-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-gradient-to-r from-green-500 to-green-600 style={{color: '#fdfcfb'}} px-10 py-4 rounded-xl font-mokoto font-bold text-xl hover:from-green-400 hover:to-green-500 transition-all duration-300 inline-block hover:scale-105 transform neon-glow"
-              >
-                Join the Team
-              </a>
-            </div>
-          </div>
           
           {/* Floating Elements */}
           <div className="absolute top-20 left-10 w-4 h-4 rounded-full animate-pulse-glow floating" style={{background: '#00ff88'}}></div>

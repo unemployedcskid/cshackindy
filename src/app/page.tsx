@@ -1,10 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [activeSection, setActiveSection] = useState<string>('');
+  
+  // Track which section is currently in view and handle scroll animations
+  useEffect(() => {
+    const sections = ['about', 'schedule', 'faq', 'sponsors'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+            // Add visible class to scroll-fade-in elements in this section
+            const fadeElements = entry.target.querySelectorAll('.scroll-fade-in');
+            fadeElements.forEach((element) => {
+              element.classList.add('visible');
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+    
+    return () => observer.disconnect();
+  }, []);
 
   const toggleFAQ = (index: number) => {
     setOpenFAQ(openFAQ === index ? null : index);
@@ -35,6 +63,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black style={{color: '#fdfcfb'}} relative overflow-hidden">
+      {/* Matrix Circuit Background */}
+      <div className="matrix-bg"></div>
+      <div className="circuit-overlay"></div>
+      
       {/* Background Effects */}
       <div className="fixed inset-0 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 opacity-50"></div>
       <div className="fixed top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse-glow" style={{background: 'rgba(206, 185, 145, 0.05)'}}></div>
@@ -55,16 +87,16 @@ export default function Home() {
                       alt="CS Club Logo" 
                       className="w-10 h-10 object-contain neon-glow"
                     />
-                    <span className="font-canvasans-medium text-sm" style={{color: '#ceb991'}}>Purdue CS CLUB</span>
+                    <span className="font-canvasans-medium text-sm" style={{color: '#ceb991'}}>Purdue in Indianapolis</span>
                   </div>
             
             {/* Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#about" className="transition-all duration-300 font-canvasans-medium hover:scale-105" style={{color: '#fdfcfb'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#ceb991'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#fdfcfb'}>About</a>
+              <a href="#about" className={`transition-all duration-300 font-canvasans-medium hover:scale-105 ${activeSection === 'about' ? 'text-green-400' : ''}`} style={{color: activeSection === 'about' ? '#00ff88' : '#fdfcfb'}} onMouseEnter={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#ceb991')} onMouseLeave={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#fdfcfb')}>About</a>
+              <a href="#schedule" className={`transition-all duration-300 font-canvasans-medium hover:scale-105 ${activeSection === 'schedule' ? 'text-green-400' : ''}`} style={{color: activeSection === 'schedule' ? '#00ff88' : '#fdfcfb'}} onMouseEnter={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#ceb991')} onMouseLeave={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#fdfcfb')}>Schedule</a>
+              <a href="#faq" className={`transition-all duration-300 font-canvasans-medium hover:scale-105 ${activeSection === 'faq' ? 'text-green-400' : ''}`} style={{color: activeSection === 'faq' ? '#00ff88' : '#fdfcfb'}} onMouseEnter={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#ceb991')} onMouseLeave={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#fdfcfb')}>FAQ</a>
+              <a href="#sponsors" className={`transition-all duration-300 font-canvasans-medium hover:scale-105 ${activeSection === 'sponsors' ? 'text-green-400' : ''}`} style={{color: activeSection === 'sponsors' ? '#00ff88' : '#fdfcfb'}} onMouseEnter={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#ceb991')} onMouseLeave={(e) => !activeSection && ((e.target as HTMLElement).style.color = '#fdfcfb')}>Sponsors</a>
               <Link href="/team" className="transition-all duration-300 font-canvasans-medium hover:scale-105" style={{color: '#fdfcfb'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#ceb991'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#fdfcfb'}>Team</Link>
-              <a href="#schedule" className="transition-all duration-300 font-canvasans-medium hover:scale-105" style={{color: '#fdfcfb'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#ceb991'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#fdfcfb'}>Schedule</a>
-              <a href="#faq" className="transition-all duration-300 font-canvasans-medium hover:scale-105" style={{color: '#fdfcfb'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#ceb991'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#fdfcfb'}>FAQ</a>
-              <a href="#sponsors" className="transition-all duration-300 font-canvasans-medium hover:scale-105" style={{color: '#fdfcfb'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#ceb991'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#fdfcfb'}>Sponsors</a>
             </div>
 
             {/* Apply Now Button */}
@@ -74,9 +106,9 @@ export default function Home() {
             rel="noopener noreferrer"
               className="px-6 py-2 rounded-lg font-canvasans-bold transition-all duration-300 gold-glow hover:scale-105"
               style={{background: 'linear-gradient(to right, #00ff88, #00cc66)', color: '#fdfcfb'}}
-            >
+          >
               Apply Now!
-            </a>
+          </a>
           </div>
         </div>
       </nav>
@@ -102,7 +134,7 @@ export default function Home() {
               className="px-10 py-5 rounded-xl font-canvasans-bold text-xl transition-all duration-300 neon-green-glow hover:scale-105 transform"
               style={{background: 'linear-gradient(to right, #00ff88, #00cc66)', color: '#fdfcfb'}}
             >
-              Interest Form
+              Apply Now!
         </a>
         <a
               href="https://devpost.com/hackindy2026"
@@ -123,9 +155,9 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-64 px-4 sm:px-6 lg:px-8 relative">
+      <section id="about" className="py-32 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 animate-fade-in-up" style={{color: '#fdfcfb'}}>
+          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 scroll-fade-in" style={{color: '#fdfcfb'}}>
             About
           </h2>
           <div className="glass-effect cyber-border rounded-2xl p-10 hover:neon-glow transition-all duration-500 animate-scale-in">
@@ -143,7 +175,7 @@ export default function Home() {
       {/* Schedule Section */}
       <section id="schedule" className="py-32 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}} animate-fade-in-up">
+          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 scroll-fade-in" style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
             Schedule
           </h2>
           
@@ -346,7 +378,7 @@ export default function Home() {
       {/* FAQ Section */}
       <section id="faq" className="py-48 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}} animate-fade-in-up">
+          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 scroll-fade-in" style={{background: 'linear-gradient(to right, #ceb991, #cdba8e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
             FAQ
           </h2>
           <div className="space-y-6">
@@ -390,7 +422,7 @@ export default function Home() {
       </section>
 
       {/* Sponsors Section */}
-      <section id="sponsors" className="py-32 px-4 sm:px-6 lg:px-8 relative">
+      <section id="sponsors" className="py-32 pb-48 px-4 sm:px-6 lg:px-8 relative">
         {/* Glowy Background Circles */}
         <div className="absolute top-20 left-20 w-32 h-32 rounded-full blur-3xl animate-pulse-glow" style={{background: 'rgba(206, 185, 145, 0.08)'}}></div>
         <div className="absolute top-40 right-20 w-40 h-40 rounded-full blur-3xl animate-pulse-glow" style={{animationDelay: '1.5s', background: 'rgba(0, 255, 136, 0.06)'}}></div>
@@ -400,29 +432,36 @@ export default function Home() {
         <div className="absolute top-1/3 right-1/4 w-20 h-20 rounded-full blur-3xl animate-pulse-glow" style={{animationDelay: '2.5s', background: 'rgba(0, 255, 136, 0.04)'}}></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 animate-fade-in-up" style={{color: '#fdfcfb'}}>
+          <h2 className="text-5xl font-mokoto font-bold text-center mb-16 scroll-fade-in" style={{color: '#fdfcfb'}}>
             Sponsors & Partners
           </h2>
-          <div className="relative min-h-[700px]">
+          <div className="relative min-h-[900px]">
             {[
-              { logo: 'purdue cs logo transparent.png', x: '0%', y: '10%', size: 'w-64 h-64', rotation: '-3deg', delay: '0s'},
-              { logo: 'rcac logo transparent.png', x: '25%', y: '10%', size: 'w-64 h-64', rotation: '2deg', delay: '0.1s' },
-              { logo: 'datamine logo transparent.png', x: '45%', y: '10%', size: 'w-64 h-64', rotation: '-1deg', delay: '0.2s' },
-              { logo: 'indyhackers logo transparent.png', x: '65%', y: '8%', size: 'w-64 h-64', rotation: '1deg', delay: '0.3s' },
-              { logo: 'jane street logo transparent.png', x: '90%', y: '10%', size: 'w-48 h-48', rotation: '-2deg', delay: '0.4s' },
-              { logo: 'g-research ogo transparent.png', x: '0%', y: '30%', size: 'w-64 h-64', rotation: '3deg', delay: '0.5s' },
-              { logo: 'nms group logo transparent.png', x: '25%', y: '30%', size: 'w-64 h-64', rotation: '-1deg', delay: '0.6s' },
-              { logo: 'sig logo.png', x: '55%', y: '40%', size: 'w-48 h-48', rotation: '2deg', delay: '0.7s'},
-              { logo: 'kusari logo transparent.png', x: '80%', y: '30%', size: 'w-64 h-64', rotation: '-2deg', delay: '0.8s' },
-              { logo: 'anu logo.jpeg', x: '5%', y: '60%', size: 'w-34 h-34', rotation: '1deg', delay: '0.9s' },
-              { logo: 'lilly logo transparent.png', x: '25%', y: '50%', size: 'w-64 h-64', rotation: '-3deg', delay: '1.0s' },
-              { logo: 'realync logo transparent.png', x: '48%', y: '60%', size: 'w-28 h-28', rotation: '2deg', delay: '1.1s' },
-              { logo: 'farm bureau insurance logo transparent.png', x: '65%', y: '60%', size: 'w-48 h-48', rotation: '-1deg', delay: '1.2s' },
-              { logo: 'crowe logo.jpg', x: '88%', y: '52%', size: 'w-64 h-64', rotation: '3deg', delay: '1.3s'},
-              { logo: 'axiomatic consulting logo transparent.png', x: '5%', y: '85%', size: 'w-32 h-32', rotation: '-2deg', delay: '1.4s' },
-              { logo: 'trava security logo.jpeg', x: '27%', y: '80%', size: 'w-40 h-40', rotation: '1deg', delay: '1.5s'},
-              { logo: 'momentum3 logo transparent.png', x: '50%', y: '70%', size: 'w-64 h-64', rotation: '-1deg', delay: '1.6s' },
-              { logo: 'brooksource logo transparent.png', x: '80%', y: '75%', size: 'w-64 h-64', rotation: '2deg', delay: '1.7s' }
+              // Row 1
+              { logo: 'purdue cs logo transparent.png', x: '0%', y: '1%', size: 'w-56 h-56', delay: '0s'},
+              { logo: 'rcac logo transparent.png', x: '20%', y: '1%', size: 'w-56 h-56', delay: '0.1s' },
+              { logo: 'datamine logo transparent.png', x: '40%', y: '1%', size: 'w-56 h-56', delay: '0.2s' },
+              { logo: 'indyhackers logo transparent.png', x: '60%', y: '1%', size: 'w-56 h-56', delay: '0.3s' },
+              { logo: 'jane street logo transparent.png', x: '80%', y: '1%', size: 'w-56 h-56', delay: '0.4s' },
+              
+              // Row 2
+              { logo: 'g-research ogo transparent.png', x: '0%', y: '30%', size: 'w-56 h-56', delay: '0.5s' },
+              { logo: 'nms group logo transparent.png', x: '20%', y: '30%', size: 'w-56 h-56', delay: '0.6s' },
+              { logo: 'sig logo.png', x: '40%', y: '30%', size: 'w-56 h-56', delay: '0.7s'},
+              { logo: 'kusari logo transparent.png', x: '60%', y: '30%', size: 'w-56 h-56', delay: '0.8s' },
+              { logo: 'anu logo.jpeg', x: '80%', y: '30%', size: 'w-56 h-56', delay: '0.9s' },
+              
+              // Row 3
+              { logo: 'lilly logo transparent.png', x: '0%', y: '60%', size: 'w-56 h-56', delay: '1.0s' },
+              { logo: 'realync logo transparent.png', x: '20%', y: '60%', size: 'w-56 h-56', delay: '1.1s' },
+              { logo: 'farm bureau insurance logo transparent.png', x: '40%', y: '60%', size: 'w-56 h-56', delay: '1.2s' },
+              { logo: 'crowe logo.jpg', x: '60%', y: '60%', size: 'w-56 h-56', delay: '1.3s'},
+              { logo: 'axiomatic consulting logo transparent.png', x: '80%', y: '60%', size: 'w-56 h-56', delay: '1.4s' },
+              
+              // Row 4
+              { logo: 'trava security logo.jpeg', x: '0%', y: '90%', size: 'w-56 h-56', delay: '1.5s'},
+              { logo: 'momentum3 logo transparent.png', x: '20%', y: '90%', size: 'w-56 h-56', delay: '1.6s' },
+              { logo: 'brooksource logo transparent.png', x: '40%', y: '90%', size: 'w-56 h-56', delay: '1.7s' }
             ].map((item, index) => (
               <div
                 key={index}
@@ -439,13 +478,20 @@ export default function Home() {
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = `rotate(${item.rotation}) scale(1)`;
-                  e.currentTarget.style.filter = 'none';
+                  e.currentTarget.style.filter = 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))';
                 }}
               >
+                {/* Enhanced background for better visibility */}
+                <div className="absolute inset-0 bg-white/90 rounded-lg p-2 shadow-lg" style={{
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3), 0 0 15px rgba(206, 185, 145, 0.2)'
+                }}></div>
                 <img 
                   src={`/sponsors/${item.logo}`}
                   alt="Sponsor Logo"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain relative z-10"
+                  style={{
+                    filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))'
+                  }}
                 />
               </div>
             ))}
