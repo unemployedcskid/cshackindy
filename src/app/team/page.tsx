@@ -10,7 +10,7 @@ export default function TeamPage() {
       major: "Computer Science",
       interests: "Swimming, Chess, Netflix",
       email: "ojanaman@purdue.edu",
-      linkedin: "https://www.linkedin.com/in/om-janamanchi/",
+      linkedin: "https://www.linkedin.com/in/omjanamanchi/",
       image: "/team/om-janamanchi.jpg"
     },
     {
